@@ -49,6 +49,7 @@
     "open": "^10.1.0",
     "payload": "3.84.1",
     "payload-hubspot": "workspace:*",
+    "payload-iconify": "workspace:*",
     "payload-translator": "workspace:*",
     "prettier": "^3.4.2",
     "qs-esm": "8.0.1",

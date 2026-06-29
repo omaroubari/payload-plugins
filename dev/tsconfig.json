@@ -19,6 +19,8 @@
       "@payload-config": ["./payload.config.ts"],
       "payload-hubspot": ["../packages/hubspot/src/index.ts"],
       "payload-hubspot/client": ["../packages/hubspot/src/exports/client.ts"],
+      "payload-iconify": ["../packages/iconify/src/index.ts"],
+      "payload-iconify/client": ["../packages/iconify/src/exports/client.ts"],
       "payload-translator": ["../packages/translator/src/index.ts"],
       "payload-translator/client": ["../packages/translator/src/exports/client.ts"]
     },
