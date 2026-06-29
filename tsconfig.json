@@ -1,35 +1,25 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2022"
-    ],
-    "rootDir": "./",
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
     "incremental": true,
-    "emitDeclarationOnly": true,
-    "target": "ES2022",
-    "composite": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "noEmit": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@payload-config": ["./dev/payload.config.ts"],
+      "payload-hubspot": ["./packages/hubspot/src/index.ts"],
+      "payload-hubspot/client": ["./packages/hubspot/src/exports/client.ts"],
+      "payload-translator": ["./packages/translator/src/index.ts"],
+      "payload-translator/client": ["./packages/translator/src/exports/client.ts"]
+    }
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./dev/next-env.d.ts",
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "dev/**/*.ts",
+    "dev/**/*.tsx",
+    "dev/next-env.d.ts",
     ".next/dev/types/**/*.ts"
-  ]
+  ],
+  "exclude": ["**/dist/**", "node_modules"]
 }

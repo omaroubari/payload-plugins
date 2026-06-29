@@ -8,28 +8,21 @@
     "**/*.cjs",
     "**/*.ts",
     "**/*.tsx",
-    "../src/**/*.ts",
-    "../src/**/*.tsx",
+    "../packages/*/src/**/*.ts",
+    "../packages/*/src/**/*.tsx",
     "next.config.mjs",
     ".next/types/**/*.ts"
   ],
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@payload-config": [
-        "./payload.config.ts"
-      ],
-      "payload-hubspot": [
-        "../src/index.ts"
-      ],
-      "payload-hubspot/client": [
-        "../src/exports/client.ts"
-      ],
-      "payload-hubspot/rsc": [
-        "../src/exports/rsc.ts"
-      ]
+      "@payload-config": ["./payload.config.ts"],
+      "payload-hubspot": ["../packages/hubspot/src/index.ts"],
+      "payload-hubspot/client": ["../packages/hubspot/src/exports/client.ts"],
+      "payload-translator": ["../packages/translator/src/index.ts"],
+      "payload-translator/client": ["../packages/translator/src/exports/client.ts"]
     },
     "noEmit": true,
-    "emitDeclarationOnly": false,
+    "emitDeclarationOnly": false
   }
 }

@@ -1,10 +1,8 @@
 import type { Payload } from 'payload'
 
 import config from '@payload-config'
-import { createPayloadRequest, getPayload } from 'payload'
+import { getPayload } from 'payload'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-
-import { customEndpointHandler } from '../src/endpoints/customEndpointHandler.js'
 
 let payload: Payload
 
@@ -16,37 +14,28 @@ beforeAll(async () => {
   payload = await getPayload({ config })
 })
 
-describe('Plugin integration tests', () => {
-  test('should query custom endpoint added by plugin', async () => {
-    const request = new Request('http://localhost:3000/api/my-plugin-endpoint', {
-      method: 'GET',
-    })
+describe('hubspotForms plugin integration tests', () => {
+  test('adds HubSpot id fields to the configured forms collection', () => {
+    const forms = payload.collections['forms']
+    expect(forms).toBeDefined()
 
-    const payloadRequest = await createPayloadRequest({ config, request })
-    const response = await customEndpointHandler(payloadRequest)
-    expect(response.status).toBe(200)
+    const fieldNames = forms.config.fields
+      .map((field) => ('name' in field ? field.name : undefined))
+      .filter(Boolean)
 
-    const data = await response.json()
-    expect(data).toMatchObject({
-      message: 'Hello from custom endpoint',
-    })
+    expect(fieldNames).toContain('hubspotPortalId')
+    expect(fieldNames).toContain('hubspotFormId')
   })
 
-  test('can create post with custom text field added by plugin', async () => {
-    const post = await payload.create({
-      collection: 'posts',
-      data: {
-        addedByPlugin: 'added by plugin',
-      },
-    })
-    expect(post.addedByPlugin).toBe('added by plugin')
+  test('registers the HubSpot endpoints', () => {
+    const paths = (payload.config.endpoints ?? []).map(
+      (e) => `${e.method.toUpperCase()} ${e.path}`,
+    )
+    expect(paths).toContain('GET /hubspot/forms')
+    expect(paths).toContain('POST /hubspot/forms/apply')
   })
 
-  test('plugin creates and seeds plugin-collection', async () => {
-    expect(payload.collections['plugin-collection']).toBeDefined()
-
-    const { docs } = await payload.find({ collection: 'plugin-collection' })
-
-    expect(docs).toHaveLength(1)
+  test('exposes the forms collection slug on config.custom', () => {
+    expect(payload.config.custom.hubspotForms.collection).toBe('forms')
   })
 })
