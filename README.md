@@ -15,6 +15,7 @@ A monorepo of [Payload CMS](https://payloadcms.com) plugins, each published inde
 payload-plugins/
 ├── packages/
 │   ├── hubspot/        # payload-hubspot
+│   ├── iconify/        # payload-iconify
 │   └── translator/     # payload-translator
 ├── dev/                # shared Payload app for local testing (mounts every plugin)
 ├── tsconfig.base.json  # shared TS compiler options
