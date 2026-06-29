@@ -4,6 +4,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { hubspotForms } from 'payload-hubspot'
+import { IconPickerField } from 'payload-iconify'
 import { copyResolver, translator } from 'payload-translator'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
@@ -33,6 +34,11 @@ export default buildConfig({
           type: 'text',
           localized: true,
         },
+        IconPickerField({
+          name: 'icon',
+          label: 'Icon',
+          icons: ['lucide', 'mdi'],
+        }),
       ],
     },
     {
